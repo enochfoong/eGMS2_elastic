@@ -1,7 +1,0 @@
-hk\com\asl\egms2\config\ElasticConfig.class
-hk\com\asl\egms2\App.class
-hk\com\asl\egms2\model\ReportWithAttachment.class
-hk\com\asl\egms2\model\Attachment.class
-hk\com\asl\egms2\model\ElasticDoc.class
-hk\com\asl\egms2\model\FinalReportDoc.class
-hk\com\asl\egms2\controller\DocController.class
