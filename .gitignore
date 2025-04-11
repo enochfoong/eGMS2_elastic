@@ -1,0 +1,15 @@
+# Ignore build artifacts
+/target/
+/build/
+
+# Ignore IDE files
+/.idea/
+/*.iml
+/*.classpath
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore environment files
+.env
