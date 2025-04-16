@@ -6,13 +6,21 @@ import java.util.Date;
 public class FinalReportDoc implements Serializable {
     private Attachment attachment;
     private String grant_no;
+    private String data;
 
     // No-argument constructor
-    public FinalReportDoc() {}
+    public FinalReportDoc() {
+    }
 
     public FinalReportDoc(Attachment attachment, String grantNo) {
         this.attachment = attachment;
         this.grant_no = grantNo;
+    }
+
+    public FinalReportDoc(Attachment attachment, String grantNo, String data) {
+        this.attachment = attachment;
+        this.grant_no = grantNo;
+        this.data = data;
     }
 
     public Attachment getAttachment() {
@@ -30,6 +38,14 @@ public class FinalReportDoc implements Serializable {
     public void setGrant_no(String grantNo) {
         this.grant_no = grantNo;
     }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getData() {
+        return data;
+    }
 }
 
 class Attachment {
@@ -45,12 +61,12 @@ class Attachment {
     private String content;
     private int content_length;
 
-    
-
     // No-argument constructor
-    public Attachment() {}
+    public Attachment() {
+    }
 
-    public Attachment(Date date, String contentType, String format, Date modified, String language, Date metadataDate, String content, int contentLength) {
+    public Attachment(Date date, String contentType, String format, Date modified, String language, Date metadataDate,
+            String content, int contentLength) {
         this.date = date;
         this.content_type = contentType;
         this.format = format;
@@ -60,7 +76,6 @@ class Attachment {
         this.content = content;
         this.content_length = contentLength;
     }
-
 
     public Date getDate() {
         return date;
@@ -149,7 +164,5 @@ class Attachment {
     public void setContent_length(int content_length) {
         this.content_length = content_length;
     }
-
-    
 
 }

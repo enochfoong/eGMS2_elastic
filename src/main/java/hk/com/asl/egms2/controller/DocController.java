@@ -61,7 +61,6 @@ public class DocController {
             IndexResponse response = elasticsearchClient.index(request);
 
             updatedList = listDocuments();
-            System.out.println("Updated list:" + updatedList);
 
             responseMsg = "Document indexed with ID: " + response.id();
 
@@ -108,16 +107,19 @@ public class DocController {
 
         try {
             SearchRequest request = SearchRequest.of(s -> s
-                    .index(indexName)
-                    .size(10));
+                    .index(indexName));
+            // .size(10));
 
-            SearchResponse<FinalReportDoc> response = elasticsearchClient.search(request, FinalReportDoc.class);
+            SearchResponse<FinalReportDoc> response = elasticsearchClient.search(request,
+                    FinalReportDoc.class);
+
             if (response.hits().total().value() > 0) {
                 List<Hit<FinalReportDoc>> hits = response.hits().hits();
                 List<ElasticDoc<FinalReportDoc>> documents = new ArrayList<>();
                 for (Hit<FinalReportDoc> hit : hits) {
                     documents.add(new ElasticDoc<>(hit.id(), hit.source()));
                 }
+
                 return ResponseEntity.ok(documents);
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No documents found");

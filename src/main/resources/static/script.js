@@ -33,27 +33,44 @@ async function searchFiles(query) {
 
 function renderFiles(files) {
   const fileList = document.getElementById("fileList");
-  fileList.innerHTML = "";
+  fileList.innerHTML = ""; // Clear existing rows
+
   files.forEach((file) => {
     const row = document.createElement("tr");
+
+    // Populate the row's inner HTML
     row.innerHTML = `
-            <td>${file.id}</td>
-            <td>${file.source.grant_no}</td>
-            <td>${file.source.attachment.date}</td>
-            <td>${file.source.attachment.content_type}</td>
-            <td>${file.source.attachment.author}</td>
-            <td>${file.source.attachment.format}</td>
-            <td>${file.source.attachment.modified}</td>
-            <td>${file.source.attachment.language}</td>
-            <td>${file.source.attachment.metadata_date}</td>
-            <td>${file.source.attachment.title}</td>
-            <td>${file.source.attachment.creator_tool}</td>
-            <td>${file.source.attachment.content_length}</td>
-            <td>
-                <button class="btn btn-warning btn-sm me-2" onclick="editFile('${file.id}')">Edit</button>
-                <button class="btn btn-danger btn-sm" onclick="removeFile('${file.id}')">Delete</button>
-            </td>
-        `;
+        <td>${file.id}</td>
+        <td>${file.source.grant_no}</td>
+        <td>${file.source.attachment.date}</td>
+        <td>${file.source.attachment.content_type}</td>
+        <td>${file.source.attachment.author}</td>
+        <td>${file.source.attachment.format}</td>
+        <td>${file.source.attachment.modified}</td>
+        <td>${file.source.attachment.language}</td>
+        <td>${file.source.attachment.metadata_date}</td>
+        <td>${file.source.attachment.title}</td>
+        <td>${file.source.attachment.creator_tool}</td>
+        <td>${file.source.attachment.content_length}</td>
+        <td>
+          <button class="btn btn-warning btn-sm me-2" onclick="editFile('${file.id}')">Edit</button>
+          <button class="btn btn-danger btn-sm" onclick="removeFile('${file.id}')">Delete</button>
+        </td>
+      `;
+
+    // Add click event listener to the row
+    row.addEventListener("click", (event) => {
+      // Optional: Prevent the event from triggering when clicking on buttons
+      if (event.target.tagName === "BUTTON") return;
+
+      // Store the file ID in sessionStorage
+      sessionStorage.setItem("selectedDocId", file.id);
+
+      // Navigate to details.html
+      window.location.href = "details.html";
+    });
+
+    // Append the row to the table body
     fileList.appendChild(row);
   });
 }
@@ -72,7 +89,7 @@ document.getElementById("fileForm").addEventListener("submit", async (e) => {
   const file = { grant_no: grantNo };
 
   const response = await saveFile(file, fileUpload);
-  renderFiles(response.data);
+  renderFiles(response.data.body);
   document.getElementById("fileForm").reset();
 });
 
